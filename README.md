@@ -35,7 +35,3 @@ This project uses a variety of modern technologies:
 - **Database:** SQL Server (using Entity Framework Core)
 - **Authentication & Authorization:** Keycloak for role-based access control
 - **Testing:** xUnit, Moq, FluentAssertions, Bogus
-    dotnet run
-    ```
-
-5. Navigate to the
