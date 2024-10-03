@@ -13,5 +13,13 @@ namespace OnePiecePBBG.Core.Entities
         public string Name { get; set; }
         public ItemTier Tier { get; set; }
         public double DropChance { get; set; }
+
+        public Item(string name, ItemTier tier, double dropChance)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Tier = tier;
+            DropChance = dropChance;
+        }
     }
 }

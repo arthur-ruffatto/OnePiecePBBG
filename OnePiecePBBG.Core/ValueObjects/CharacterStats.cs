@@ -34,7 +34,6 @@ namespace OnePiecePBBG.Core.ValueObjects
         public void IncreaseStats()
         {
             Health += 5;
-            Stamina += 5;
             Strength += 1;
             Agility += 1;
             Constitution += 1;

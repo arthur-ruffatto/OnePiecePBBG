@@ -21,10 +21,7 @@ namespace OnePiecePBBG.Core.Entities
         public Career? CharacterCareer { get; private set; }
         public List<Skill> Skills { get; private set; }
 
-        private static readonly int[] ExperienceRequired = {
-            0, 1000, 3000, 6000, 10000, 15000, 21000, 28000, 36000, 45000,
-            55000, 66000, 78000, 91000, 105000, 120000, 136000, 153000, 171000, 190000
-        };
+
 
         public Character(string characterName, CharacterStats allocatedStats, Race? race = null, Class? characterClass = null, 
             Career? characterCareer = null)
@@ -51,12 +48,29 @@ namespace OnePiecePBBG.Core.Entities
 
         private int ExperienceToLevelUp()
         {
-            //TODO: Create static class LevelingSystem
-            if (Level < 20)
+            return Level switch
             {
-                return ExperienceRequired[Level - 1]; 
-            }
-            return ExperienceRequired[ExperienceRequired.Length - 1] + 1000 * (Level - 20); // Formula for levels beyond 20
+                1 => 1000,
+                2 => 3000,
+                3 => 6000,
+                4 => 10000,
+                5 => 15000,
+                6 => 21000,
+                7 => 28000,
+                8 => 36000,
+                9 => 45000,
+                10 => 55000,
+                11 => 66000,
+                12 => 78000,
+                13 => 91000,
+                14 => 105000,
+                15 => 120000,
+                16 => 136000,
+                17 => 153000,
+                18 => 171000,
+                19 => 190000,
+                _ => 1000 * (Level - 1) // Formula after level 20
+            };
         }
 
         private CharacterStats ApplyRaceBonuses(CharacterStats allocatedStats, Race race)
@@ -67,7 +81,6 @@ namespace OnePiecePBBG.Core.Entities
         public void LevelUp()
         {
             Level++;
-            Experience = 0;
             Stats.IncreaseStats();
         }
 

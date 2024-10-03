@@ -1,5 +1,6 @@
 ﻿using Moq;
 using OnePiecePBBG.Core.Entities;
+using OnePiecePBBG.Core.ValueObjects;
 
 namespace OnePiecePBBG.Tests.Common.Fixtures
 {
@@ -15,6 +16,8 @@ namespace OnePiecePBBG.Tests.Common.Fixtures
         public Mock<Career> GetCareerMock() => new();
 
         public string GetValidCharacterName() => Faker.Name.FullName();
+
+        public CharacterStats GetValidInitialStats() => new CharacterStats();
     }
 
     [CollectionDefinition(nameof(CharacterFixture))]
