@@ -1,4 +1,6 @@
-﻿using OnePiecePBBG.Core.ValueObjects;
+﻿using OnePiecePBBG.Core.Exceptions;
+using OnePiecePBBG.Core.Validations;
+using OnePiecePBBG.Core.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,17 @@ namespace OnePiecePBBG.Core.Entities
             CharacterCareer = characterCareer;*/
             Stats = allocatedStats; //TODO: ApplyRaceBonuses(allocatedStats, race);
             Skills = new List<Skill>();
+
+            Validate();
+        }
+
+        private void Validate()
+        {
+            DomainValidation.EnsureNotNullOrEmpty(CharacterName, nameof(CharacterName));
+            DomainValidation.EnsureGreaterThan(Level, 0, nameof(Level));
+            DomainValidation.EnsureNotNegative(Experience, nameof(Experience));
+            DomainValidation.EnsureNotNull(Stats, nameof(Stats));
+            DomainValidation.EnsureNotNull(Inventory, nameof(Inventory));
         }
 
         public void GainExperience(int amount)
@@ -44,6 +57,8 @@ namespace OnePiecePBBG.Core.Entities
             Experience += amount;
             while (Experience >= ExperienceToLevelUp())
                 LevelUp();
+
+            Validate();
         }
 
         private int ExperienceToLevelUp()
@@ -78,7 +93,7 @@ namespace OnePiecePBBG.Core.Entities
             return allocatedStats.ApplyBonuses(race.Bonuses);
         }
 
-        public void LevelUp()
+        private void LevelUp()
         {
             Level++;
             Stats.IncreaseStats();
@@ -87,11 +102,13 @@ namespace OnePiecePBBG.Core.Entities
         public void AddItem(Item item)
         {
             Inventory.Add(item);
+            Validate();
         }
 
         public void RemoveItem(Item item)
         {
             Inventory.Remove(item);
+            Validate();
         }
     }
 }
